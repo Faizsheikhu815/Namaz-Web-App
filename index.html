@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noor Companion - Namaz, Quran, Qibla & Duas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="navbar" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Noor Companion home">
+          <span class="brand-mark">ن</span>
+          <span>Noor Companion</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links">
+          <a href="#prayer">Namaz</a>
+          <a href="#qibla">Qibla</a>
+          <a href="#quran">Quran</a>
+          <a href="#duas">Duas</a>
+          <a href="#tasbeeh">Tasbeeh</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Daily Islamic companion</p>
+          <h1>Namaz timings, Quran Sharif, Qibla compass, duas, Hadith, and tasbeeh.</h1>
+          <p>
+            A calm web app for daily worship: check prayer times for your location, find Qibla,
+            read Quran by all 30 Parah, save tasbeeh counts, and keep essential duas close.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#prayer">Check Namaz Timing</a>
+            <a class="secondary-button" href="#quran">Read Quran</a>
+          </div>
+        </div>
+        <div class="daily-card">
+          <p class="eyebrow">Today</p>
+          <h2 id="hijriDate">Loading Hijri date...</h2>
+          <p id="gregorianDate"></p>
+          <div class="next-prayer">
+            <span>Next Prayer</span>
+            <strong id="nextPrayer">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section prayer-section" id="prayer">
+        <div class="section-heading">
+          <p class="eyebrow">Namaz timings</p>
+          <h2>Prayer times for your city</h2>
+        </div>
+
+        <form class="location-form" id="locationForm">
+          <label>
+            City
+            <input id="cityInput" type="text" value="Makkah" placeholder="Example: Dubai, Delhi, London" />
+          </label>
+          <label>
+            Country
+            <input id="countryInput" type="text" value="Saudi Arabia" placeholder="Example: UAE, India, UK" />
+          </label>
+          <label>
+            Calculation
+            <select id="methodInput">
+              <option value="2">Islamic Society of North America</option>
+              <option value="3">Muslim World League</option>
+              <option value="4">Umm Al-Qura, Makkah</option>
+              <option value="5">Egyptian General Authority</option>
+              <option value="8">Gulf Region</option>
+              <option value="1">University of Islamic Sciences, Karachi</option>
+              <option value="6">Asia Region</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Load Timings</button>
+            <button class="secondary-button" type="button" id="useLocation">Use My Location</button>
+          </div>
+        </form>
+
+        <div class="status-line" id="prayerStatus">Enter a city or use your current location.</div>
+        <div class="prayer-grid" id="prayerGrid"></div>
+      </section>
+
+      <section class="section qibla-section" id="qibla">
+        <div class="qibla-copy">
+          <p class="eyebrow">Qibla compass</p>
+          <h2>Find the direction of the Kaaba.</h2>
+          <p>
+            Allow location access to calculate your Qibla bearing. On supported phones, enable
+            device orientation to use the live compass.
+          </p>
+          <div class="qibla-actions">
+            <button class="primary-button" type="button" id="findQibla">Find Qibla</button>
+            <button class="secondary-button" type="button" id="enableCompass">Enable Compass</button>
+          </div>
+          <p class="status-line" id="qiblaStatus">Waiting for location permission.</p>
+        </div>
+
+        <div class="compass-card">
+          <div class="compass">
+            <div class="compass-face">
+              <span class="north">N</span>
+              <span class="east">E</span>
+              <span class="south">S</span>
+              <span class="west">W</span>
+              <div class="qibla-needle" id="qiblaNeedle"></div>
+            </div>
+          </div>
+          <div class="bearing-readout">
+            <span>Qibla Bearing</span>
+            <strong id="bearingValue">--</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="section quran-section" id="quran">
+        <div class="section-heading">
+          <p class="eyebrow">Quran Sharif</p>
+          <h2>Read by all 30 Parah</h2>
+        </div>
+        <div class="quran-layout">
+          <aside class="juz-panel">
+            <div class="juz-grid" id="juzGrid"></div>
+          </aside>
+          <article class="quran-reader">
+            <div class="reader-header">
+              <div>
+                <p class="eyebrow">Selected Parah</p>
+                <h3 id="selectedJuz">Parah 1</h3>
+              </div>
+              <button class="secondary-button" type="button" id="loadJuz">Load Arabic Text</button>
+            </div>
+            <div class="status-line" id="quranStatus">
+              Select a Parah and load Arabic text. Online Quran text is fetched from a public Quran API.
+            </div>
+            <div class="surah-range" id="surahRange"></div>
+            <div class="ayah-list" id="ayahList">
+              <p class="empty-state">Quran reader is ready. Choose any Parah from 1 to 30.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section knowledge-section" id="duas">
+        <div class="section-heading">
+          <p class="eyebrow">Hadith & duas</p>
+          <h2>Daily reminders and essential duas</h2>
+        </div>
+        <div class="knowledge-grid">
+          <article class="hadith-card">
+            <div class="card-top">
+              <p class="eyebrow">Hadith</p>
+              <button class="secondary-button" type="button" id="newHadith">New Hadith</button>
+            </div>
+            <blockquote id="hadithText"></blockquote>
+            <p id="hadithSource"></p>
+          </article>
+          <article class="dua-card">
+            <div class="card-top">
+              <p class="eyebrow">Dua</p>
+              <button class="secondary-button" type="button" id="newDua">New Dua</button>
+            </div>
+            <p class="arabic" id="duaArabic"></p>
+            <h3 id="duaTitle"></h3>
+            <p id="duaMeaning"></p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section tasbeeh-section" id="tasbeeh">
+        <div class="tasbeeh-card">
+          <div>
+            <p class="eyebrow">Tasbeeh</p>
+            <h2>Digital dhikr counter</h2>
+            <p>Choose a dhikr, tap to count, and reset whenever you want. Your latest count stays in this browser.</p>
+            <select id="dhikrSelect" aria-label="Choose dhikr">
+              <option>SubhanAllah</option>
+              <option>Alhamdulillah</option>
+              <option>Allahu Akbar</option>
+              <option>La ilaha illallah</option>
+              <option>Astaghfirullah</option>
+              <option>Allahumma salli ala Muhammad</option>
+            </select>
+          </div>
+          <div class="counter-panel">
+            <button class="counter-button" type="button" id="countButton">
+              <span id="tasbeehCount">0</span>
+              <small>Tap for dhikr</small>
+            </button>
+            <div class="counter-actions">
+              <button class="secondary-button" type="button" id="minusCount">-1</button>
+              <button class="secondary-button" type="button" id="resetCount">Reset</button>
+              <button class="secondary-button" type="button" id="targetCount">Target 33</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <a class="brand" href="#home">
+          <span class="brand-mark">ن</span>
+          <span>Noor Companion</span>
+        </a>
+        <p>Prayer times and Quran data depend on public APIs and location permission. Always confirm local mosque timings.</p>
+      </div>
+      <div>
+        <h3>Features</h3>
+        <a href="#prayer">Namaz Timing</a>
+        <a href="#qibla">Qibla Compass</a>
+        <a href="#quran">Quran Sharif</a>
+      </div>
+      <div>
+        <h3>Worship</h3>
+        <a href="#duas">Hadith & Duas</a>
+        <a href="#tasbeeh">Tasbeeh</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

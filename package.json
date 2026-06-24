@@ -1,0 +1,17 @@
+{
+  "name": "noor-companion",
+  "version": "1.0.0",
+  "description": "Islamic web app for prayer times, Qibla, duas, hadith, tasbeeh, and Quran reading by Parah.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "namaz",
+    "qibla",
+    "quran",
+    "dua",
+    "tasbeeh"
+  ],
+  "license": "MIT"
+}
